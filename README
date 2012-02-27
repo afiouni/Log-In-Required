@@ -1,0 +1,24 @@
+What is Log In Required
+Log In Required is a plugin for elgg that adds further security by preventing non-members from accessing all but some pages open for public viewing.
+
+Features
+By default, Log In Required prevents non-member access to all pages with the exception of:
+
+The Home page (of course)
+The Registeration page
+The Forgotten Password Page
+The “externalpages” plugin pages (Terms, Privacy, About)
+Extensibility (for developers)
+If you would like to add more allowed public view pages, you can register your own hook:
+
+register_plugin_hook('login_required','login_required', 'your_function_name');
+For more information, I have a working example in the plugin itself made for demonstration purposes.
+
+One thing to consider, when adding more public pages, make sure to accommodate for other extensions as well. The extension hook should take the input array, add more items to it and return the resulting array like the following example:
+
+register_plugin_hook('login_required','login_required', 'mysite_allow_list');
+function mysite_allow_list ($hook, $type, $returnvalue, $params)
+{
+  $returnvalue[] = 'http://example.com/url/to/allowed/page';
+  return $returnvalue;
+}
